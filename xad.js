@@ -4,38 +4,92 @@ var express = require('express');
 var request = require('request');
 var xad = express();
 var parser = require('xml2json');
+var call_logger  = require('./modules/call_logger')
+var keyword=""
+var location=""
+var state =""
 
-//start listener
-xad.listen(process.env.PORT || 8955);
+//Keyword
+if (process.argv[2])
+{
+  keyword=process.argv[2]
 
-xad.get('/xad', function(req, res) {
-    
-    var keyword=req.query.keyword.replace(' ','%20')
-    console.log('keyword: ' + keyword );
-    var loc=req.query.loc
-    console.log('location: ' + loc );
+}
 
-    
-     console.log('http://local.xad.com/rest/local?v=1.1&o_fmt=json&k=lG15roW6exy3IsRUgLnLbfNom_DMTAr3&auto_imp=1&sort=dist&i=' + keyword + '&devid=test-&appid=yellowpages-4.4.2&uid=test&loc=' + loc + '&co=US&s=0&n=15&l=ad' );
-     url_request='http://local.xad.com/rest/local?v=1.1&o_fmt=json&k=lG15roW6exy3IsRUgLnLbfNom_DMTAr3&auto_imp=1&sort=dist&i=' + keyword + '&devid=test-&appid=yellowpages-4.4.2&uid=test&loc=' + loc + '&co=US&s=0&n=15&l=ad';
-  //  curl.request('http://local.xad.com/rest/local?v=1.1&o_fmt=&k=lG15roW6exy3IsRUgLnLbfNom_DMTAr3&auto_imp=1&sort=dist&i=' + keyword + '&devid=test-&appid=yellowpages-4.4.2&uid=test&loc=' + loc + '&co=US&s=0&n=15&l=ad',  ret_curl );
+//Zipcode, State, All, City
+if (process.argv[3])
+{
+  location=process.argv[3]
 
-    request(url_request, function (error, response, body) {
+}
+
+//State
+if (process.argv[4])
+{
+  state=process.argv[4]
+
+}
+
+
+if (location.length>0 && keyword.length>0)
+{
+
+    if (!isNaN(location)){ //Search by Zipcode
+      console.log ('Search by zipcode:' + location)
+      url_request="http://10.66.12.193:8955/xad?keyword=" + keyword + "&loc=" + location
+      result = request(url_request,callback)
+    }
+    else
+    {
+      if (location.toLowerCase() =="all") //Search by AllStates
+      {
+         console.log ('Search by AllStates')
+        url_request="http://10.66.12.193:8955/xad?keyword=" + keyword + "&loc=" + location
+
+      }
+      else
+      {
+        if (state.length>0){ //Search by City and state
+          console.log ('Search by City:' + location + ' and State:' + state)
+          url_request="http://10.66.12.193:8955/xad?keyword=" + keyword + "&loc=" + location + "," + state
+          result = request(url_request,callback)
+
+        }else //Search by State
+        {
+          console.log ('Search by State:' + location)
+          url_request= "http://10.66.12.193:8955/xad?keyword=" + keyword + "&loc=" + location
+        }
+      }
+
+    }
+}
+
+
+
+
+function callback(error, response, body) {
        var options = {
                 object: true,
           };
 
+          console.log ('Processing:' + location)
       if (!error && response.statusCode == 200) {
-       //console.log('body');
+    
        json_result=JSON.parse(body);
-        if (json_result.results.status == "0" ) { 
-          console.log ('status equals to 0');
-            res.send(json_result.results.paid_listings);
+       
+         
+        if (json_result.count == "0" ) { 
+          console.log ('0 Results');
+            
           } else {
-            console.log('status different to 0');
-           res.send(json_result.results);
+            console.log (json_result.count + ' Results');
+            result=json_result.listing
+            for (var k in result) {
+              if (result[k])
+               call_logger.log_info(result[k]);
+                //  console.log(JSON.stringify(result[k], null, "\t"))
+              }         
           }
       }
-    });
-   
-})
+}
+

@@ -13,7 +13,8 @@
     "grunt-npm": "*",
     "grunt-beautify": "*",
     "grunt-bump": "*",
-    "mysql": "*"
+    "mysql": "*",
+     "winston": "~1.0.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
