@@ -1,4 +1,4 @@
-# XAD
+# Xad Scanner
 
 ### Description
 access to the xad search api
@@ -12,60 +12,32 @@ $ npm install
 $ node xad.js
 ```
 
--  How to deploy:
-First you have to install capistrano/npm
-gem install capistrano-npm
-Then you can continue with the deployment
-
-Now the deployment is pointed to 10.66.12.193 server it will restart the app as cluster of 2
+-  How to use it:
+Search by an specific Zipcode:
 ```sh
-$ cap staging deploy --trace
+$ node xad.js adt 77494
 ```
 
--  How to start,stop, restart, delete,show logs, flush logs with capistrano:
-To start it 
+Search by an specific State:
 ```sh
-$ cap staging deploy:start
+$ node xad.js adt CA
 ```
 
-To stop it 
+Search by an specific city and State:
 ```sh
-$ cap staging deploy:stop
-```
-To restart it 
-```sh
-$ cap staging deploy:restart
+$ node xad.js adt Houston TX
 ```
 
-To restart it as cluster of 2
+Search by all States:
 ```sh
-$ cap staging deploy:restart_cluster
+$ node xad.js adt all
 ```
 
-
-To delete it 
+Send the results to a file
 ```sh
-$ cap staging deploy:delete
+$ node xad.js "T Mobile" all > result.file
 ```
 
-To show logs it 
 ```sh
-$ cap staging deploy:show_log
+$ node xad.js adt Houston TX > result.file
 ```
-
-To flush logs it 
-```sh
-$ cap staging deploy:flush_logs
-```
-
-To list app it 
-```sh
-$ cap staging deploy:list
-
--  Some examples:
-http://localhost:8955/xad?keyword=adt&loc=san%20francisco,ca
-http://localhost:8955/xad?keyword=adt&loc=77494
-
-
-
-

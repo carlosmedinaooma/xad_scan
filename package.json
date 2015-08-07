@@ -1,25 +1,12 @@
 {
-  "name": "first-express-app",
-  "description": "a fine piece of express art",
+  "name": "xad-scanner-app",
+  "description": "Node projects needed",
   "version": "0.0.1",
   "dependencies": {
     "express": "^3.19.2",
-    "grunt": "^0.4.5",
-    "grunt-contrib-jshint": "^0.11.0",
-    "grunt-deploy": "^0.1.7",
-    "xml2json": "*",
     "request": "*",
-    "forever": "*",
-    "grunt-npm": "*",
-    "grunt-beautify": "*",
-    "grunt-bump": "*",
-    "mysql": "*",
      "winston": "~1.0.0"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-jshint": "^0.11.0",
-    "grunt-deploy": "^0.1.7",
-    "grunt-ssh": "^0.12.1"
   }
 }
