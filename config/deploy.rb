@@ -7,8 +7,8 @@ set :stages, ["staging", "production"]
 set :default_stage, "staging"
 set :deploy_via, :copy
 set :tmp_dir , "/home/railsuser"
-set :app_command, 'xad'
-set :app_name, 'xad.js'
+set :app_command, 'xad_scanner'
+set :app_name, 'xad_scanner.js'
 
 SSHKit.config.command_map[:rake]  = "bundle exec rake" #8
 SSHKit.config.command_map[:rails] = "bundle exec rails"

@@ -7,7 +7,7 @@
 
 set :password, ask('Server password:', nil)
 server "fg-dev2-test3",   user: "railsuser", port: 22, password: fetch(:password), roles: %w{web app db}
-set :deploy_to, "/var/www/html/staging/xad"
+set :deploy_to, "/var/www/html/staging/xad_scanner"
 
 set      :eager_load , false
 

@@ -9,35 +9,35 @@ access to the xad search api
 ```sh
 $ rm -rf node_modules
 $ npm install
-$ node xad.js
+$ node xad_scanner.js
 ```
 
 -  How to use it:
 Search by an specific Zipcode:
 ```sh
-$ node xad.js adt 77494
+$ node xad_scanner.js adt 77494
 ```
 
 Search by an specific State:
 ```sh
-$ node xad.js adt CA
+$ node xad_scanner.js adt CA
 ```
 
 Search by an specific city and State:
 ```sh
-$ node xad.js adt Houston TX
+$ node xad_scanner.js adt Houston TX
 ```
 
 Search by all States:
 ```sh
-$ node xad.js adt all
+$ node xad_scanner.js adt all
 ```
 
 Send the results to a file
 ```sh
-$ node xad.js "T Mobile" all > result.file
+$ node xad_scanner.js "T Mobile" all > result.file
 ```
 
 ```sh
-$ node xad.js adt Houston TX > result.file
+$ node xad_scanner.js adt Houston TX > result.file
 ```
