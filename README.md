@@ -41,3 +41,6 @@ $ node xad_scanner.js "T Mobile" all > result.file
 ```sh
 $ node xad_scanner.js adt Houston TX > result.file
 ```
+
+Links:
+http://www.structnet.com/instructions/zip_min_max_by_state.html
